@@ -1,103 +1,74 @@
-import React, { useState, useEffect, createContext } from "react";
-import axios from "axios";
+"use client";
 
-axios.defaults.withCredentials = true;
+import React, { useState, useEffect, createContext, useMemo } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 export const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
+  axios.defaults.withCredentials = true;
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
 
-  const createUser = async (name, email, pin, role, mobile, nid) => {
-    setLoading(true);
-    try {
-      const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/register`,
-        {
-          name,
-          mobile,
-          pin,
-          email,
-          role,
-          nid,
-        }
-      );
-
-      await fetchUserDetails();
-      setLoading(false);
-      return response.data;
-    } catch (error) {
-      setLoading(false);
-      throw error;
-    }
-  };
-
-  const signin = async (mobile, pin) => {
-    setLoading(true);
+  // login
+  const login = async (mobile, pin) => {
     try {
       const response = await axios.post(
         `${process.env.NEXT_PUBLIC_API_URL}/auth/login`,
-        {
-          mobile,
-          pin,
-        }
+        { mobile, pin }
       );
-
-      await fetchUserDetails();
-      setLoading(false);
-      return response.data;
+      // setUser(response.data);
+      getUser();
+      return response?.data;
     } catch (error) {
-      setLoading(false);
-      throw error;
+      return Promise.reject(error?.response?.data);
     }
   };
 
+  // logout
   const logout = async () => {
-    setLoading(true);
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`);
       setUser(null);
-      setLoading(false);
+      getUser();
     } catch (error) {
-      setLoading(false);
-      throw error;
+      console.log(error);
     }
   };
-
-  const fetchUserDetails = async () => {
-    try {
-      const response = await axios.get(
-        `${process.env.NEXT_PUBLIC_API_URL}/auth/user`
-      );
-      setUser(response.data);
-    } catch (error) {
-      setUser(null);
-      throw error;
-    }
+  // logout();
+  // getuser
+  const getUser = async () => {
+    axios
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/auth/user`)
+      .then((res) => {
+        if(res.data){
+          setUser(res.data);
+        }
+        else{
+          setUser(res.data);
+        }
+      })
+      .catch(() => {
+        setUser(null);
+      });
   };
-
   useEffect(() => {
-    const checkAuthState = async () => {
-      try {
-        await fetchUserDetails();
-      } catch (error) {
-        console.error("Error checking auth state:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    checkAuthState();
+    getUser();
   }, []);
 
-  const authInfo = {
-    user,
-    createUser,
-    signin,
-    logout,
-    loading,
-  };
+
+  console.log(user);
+  const authInfo = useMemo(
+    () => ({
+      user,
+      setUser,
+      login,
+      logout,
+      getUser,
+    }),
+    []
+  );
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

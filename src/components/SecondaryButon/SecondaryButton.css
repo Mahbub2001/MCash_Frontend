@@ -1,0 +1,14 @@
+.buttonsecondary{
+    background: transparent;
+    border:1px solid;
+    padding: 8px 10px;
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transition: all 0.3s ease-in;
+    font-weight: bold;
+}
+.buttonsecondary:hover{
+    padding: 8px 15px;
+    color: black;
+    border-color: black;
+}
