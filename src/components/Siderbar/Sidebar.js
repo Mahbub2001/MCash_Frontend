@@ -4,7 +4,7 @@ import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function Sidebar({ user, logout }) {
-  console.log(user);
+  // console.log(user);
   const [isVisible, setIsVisible] = useState(false);
 
   const handleLogout = () => {
@@ -295,6 +295,30 @@ function Sidebar({ user, logout }) {
                     className="text-[#0e161b] text-sm font-medium leading-normal"
                   >
                     User Management
+                  </Link>
+                </div>
+                <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
+                  <div
+                    className="text-[#0e161b]"
+                    data-icon="House"
+                    data-size="24px"
+                    data-weight="fill"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="24px"
+                      height="24px"
+                      fill="currentColor"
+                      viewBox="0 0 256 256"
+                    >
+                      <path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"></path>
+                    </svg>
+                  </div>
+                  <Link
+                    href="/agentaddmoney"
+                    className="text-[#0e161b] text-sm font-medium leading-normal"
+                  >
+                    Add Money Agent
                   </Link>
                 </div>
                 <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
