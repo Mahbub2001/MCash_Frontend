@@ -1,20 +1,37 @@
+"use client";
+
 import Link from "next/link";
 import React, { useState } from "react";
-import { FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { FaArrowLeft, FaArrowRight, FaBars } from "react-icons/fa";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
 function Sidebar({ user, logout }) {
-  // console.log(user);
   const [isVisible, setIsVisible] = useState(false);
   const [isVisible1, setIsVisible1] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
 
   const handleLogout = () => {
     logout();
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
   return (
     <div className="layout-content-container flex flex-col w-80">
-      <div className="flex h-full min-h-screen flex-col justify-between bg-[#f8fafb] p-4">
+      <button
+        onClick={toggleSidebar}
+        className="fixed top-4 left-4 z-50 p-2 bg-[#f8fafb] rounded-md lg:hidden"
+      >
+        <FaBars className="text-2xl" />
+      </button>
+
+      <div
+        className={`fixed lg:relative h-full min-h-screen flex flex-col justify-between bg-[#f8fafb] p-4 transform transition-transform duration-300 ease-in-out ${
+          isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+        } w-80 z-40`}
+      >
         <div className="flex flex-col gap-4">
           <h1 className="text-[#0e161b] text-base text-center font-medium leading-normal tracking-widest">
             M CASH
@@ -61,12 +78,6 @@ function Sidebar({ user, logout }) {
                     >
                       {user?.balance || "৳0.00"}
                     </div>
-                    {/* <button
-                      onClick={() => setIsVisible(!isVisible)}
-                      className="text-gray-600 hover:text-black transition-all"
-                    >
-                      {isVisible ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-                    </button> */}
                   </div>
                 </div>
                 <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
@@ -117,7 +128,7 @@ function Sidebar({ user, logout }) {
                     Cash out
                   </Link>
                 </div>
-                <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
+                {/* <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
                   <div
                     className="text-[#0e161b]"
                     data-icon="House"
@@ -132,7 +143,7 @@ function Sidebar({ user, logout }) {
                   >
                     Cash In
                   </Link>
-                </div>
+                </div> */}
               </>
             )}
             {user?.role === "agent" && (

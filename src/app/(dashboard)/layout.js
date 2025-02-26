@@ -8,7 +8,7 @@ export default function RootLayout({ children }) {
   const { user, logout } = useContext(AuthContext);
 
   return (
-    <div className="flex gap-5">
+    <div className="lg:flex gap-5">
       <Sidebar user={user} logout={logout} />
       <main className="container mx-auto">{children}</main>
     </div>

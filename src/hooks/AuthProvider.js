@@ -53,6 +53,7 @@ const AuthProvider = ({ children }) => {
   }, [getUser, router]);
 
   useEffect(() => {
+    axios.defaults.withCredentials = true;
     setLoading(true);
     getUser();
     setLoading(false);
