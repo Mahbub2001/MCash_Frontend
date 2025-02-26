@@ -28,7 +28,7 @@ function Sidebar({ user, logout }) {
       </button>
 
       <div
-        className={`fixed lg:relative h-full min-h-screen flex flex-col justify-between bg-[#f8fafb] p-4 transform transition-transform duration-300 ease-in-out ${
+        className={`fixed lg:relative h-full min-h-screen justify-between bg-[#f8fafb] p-4 transform transition-transform duration-300 ease-in-out ${
           isSidebarOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
         } w-80 z-40`}
       >
