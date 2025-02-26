@@ -8,6 +8,8 @@ import { Listbox, Transition } from "@headlessui/react";
 import { FaAngleUp, FaAngleDown, FaCheck } from "react-icons/fa";
 import Link from "next/link";
 import axios from "axios";
+import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 const options = [{ role: "user" }, { role: "Agent" }];
 
@@ -16,6 +18,7 @@ const Register = () => {
   const [loading, setLoading] = useState(false);
   const [pin, setPin] = useState("");
   const [error, setError] = useState("");
+  const router = useRouter();
 
   const handleChange = (e) => {
     const value = e.target.value;
@@ -49,7 +52,9 @@ const Register = () => {
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, userData)
       .then((res) => {
-        console.log(res.data.accessToken);
+        // console.log(res.data.accessToken);
+        router.push("/dash");
+        toast.success("Registration Successful");
       })
       .catch((err) => {
         console.log(err.response.data);

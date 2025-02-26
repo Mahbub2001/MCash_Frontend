@@ -10,7 +10,7 @@ export default function RootLayout({ children }) {
   return (
     <div className="flex gap-5">
       <Sidebar user={user} logout={logout} />
-      <main>{children}</main>
+      <main className="container mx-auto">{children}</main>
     </div>
   );
 }

@@ -19,7 +19,6 @@ function Sidebar({ user, logout }) {
             M CASH
           </h1>
           <div className="flex flex-col gap-2">
-            {/* Repeat for each sidebar item */}
             <div className="flex items-center gap-3 px-3 py-2 rounded-xl bg-[#e8eef3]">
               <div
                 className="text-[#0e161b]"
