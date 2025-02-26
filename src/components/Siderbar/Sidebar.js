@@ -406,7 +406,9 @@ function Sidebar({ user, logout }) {
                 </svg>
               </div>
               <Link
-                href="/transactions"
+                href={
+                  user?.role === "admin" ? "/admintransaction" : "/transactions"
+                }
                 className="text-[#0e161b] text-sm font-medium leading-normal"
               >
                 Transactions
