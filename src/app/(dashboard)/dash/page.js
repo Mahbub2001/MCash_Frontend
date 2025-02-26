@@ -11,6 +11,9 @@ function Dash() {
           <p>You havent approved yet</p>
         </div>
       )}
+      <div className="flex justify-center items-center h-screen">
+        <h1 className="text-4xl">Welcome to Dashboard</h1>
+      </div>
     </div>
   );
 }

@@ -8,7 +8,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 function Sidebar({ user, logout }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isVisible1, setIsVisible1] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false); 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -33,9 +33,12 @@ function Sidebar({ user, logout }) {
         } w-80 z-40`}
       >
         <div className="flex flex-col gap-4">
-          <h1 className="text-[#0e161b] text-base text-center font-medium leading-normal tracking-widest">
+          <Link
+            href="/dash"
+            className="text-[#0e161b] text-base text-center font-medium leading-normal tracking-widest"
+          >
             M CASH
-          </h1>
+          </Link>
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-3 px-3 py-2 rounded-xl bg-[#e8eef3]">
               <div
