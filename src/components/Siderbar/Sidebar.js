@@ -134,7 +134,7 @@ function Sidebar({ user, logout }) {
                 </div>
               </>
             )}
-            {user?.role === "Agent" && (
+            {user?.role === "agent" && (
               <>
                 <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
                   <div className="flex items-center gap-3 px-4 py-2 rounded-xl shadow-sm">
@@ -149,88 +149,92 @@ function Sidebar({ user, logout }) {
                         isVisible ? "text-black" : "blur-sm text-gray-500"
                       }`}
                     >
-                      {user?.balance || "৳0.00"}
+                      {user?.isApproved ? user?.balance || "0.00" : "0.00"}
                     </div>
-                    {/* <button
-                      onClick={() => setIsVisible(!isVisible)}
-                      className="text-gray-600 hover:text-black transition-all"
-                    >
-                      {isVisible ? <FiEyeOff size={18} /> : <FiEye size={18} />}
-                    </button> */}
                   </div>
                 </div>
-                <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
-                  <div
-                    className="text-[#0e161b]"
-                    data-icon="House"
-                    data-size="24px"
-                    data-weight="fill"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24px"
-                      height="24px"
-                      fill="currentColor"
-                      viewBox="0 0 256 256"
-                    >
-                      <path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"></path>
-                    </svg>
+
+                {user?.isApproved ? (
+                  <>
+                    <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
+                      <div
+                        className="text-[#0e161b]"
+                        data-icon="House"
+                        data-size="24px"
+                        data-weight="fill"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          fill="currentColor"
+                          viewBox="0 0 256 256"
+                        >
+                          <path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"></path>
+                        </svg>
+                      </div>
+                      <Link
+                        href="/agentaddmoney"
+                        className="text-[#0e161b] text-sm font-medium leading-normal"
+                      >
+                        Add Money
+                      </Link>
+                    </div>
+                    <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
+                      <div
+                        className="text-[#0e161b]"
+                        data-icon="House"
+                        data-size="24px"
+                        data-weight="fill"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          fill="currentColor"
+                          viewBox="0 0 256 256"
+                        >
+                          <path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"></path>
+                        </svg>
+                      </div>
+                      <Link
+                        href="/agentcashrequest"
+                        className="text-[#0e161b] text-sm font-medium leading-normal"
+                      >
+                        Cash Request
+                      </Link>
+                    </div>
+                    <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
+                      <div
+                        className="text-[#0e161b]"
+                        data-icon="House"
+                        data-size="24px"
+                        data-weight="fill"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="24px"
+                          height="24px"
+                          fill="currentColor"
+                          viewBox="0 0 256 256"
+                        >
+                          <path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"></path>
+                        </svg>
+                      </div>
+                      <Link
+                        href="/agentwithdrawrequest"
+                        className="text-[#0e161b] text-sm font-medium leading-normal"
+                      >
+                        Give A WithDraw Request
+                      </Link>
+                    </div>
+                  </>
+                ) : (
+                  <div className="text-sm text-red-500 px-3 py-2">
+                    Your account is not approved yet. Please wait for admin
+                    approval.
                   </div>
-                  <Link
-                    href="/agentaddmoney"
-                    className="text-[#0e161b] text-sm font-medium leading-normal"
-                  >
-                    Add Money
-                  </Link>
-                </div>
-                <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
-                  <div
-                    className="text-[#0e161b]"
-                    data-icon="House"
-                    data-size="24px"
-                    data-weight="fill"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24px"
-                      height="24px"
-                      fill="currentColor"
-                      viewBox="0 0 256 256"
-                    >
-                      <path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"></path>
-                    </svg>
-                  </div>
-                  <Link
-                    href="/agentcashrequest"
-                    className="text-[#0e161b] text-sm font-medium leading-normal"
-                  >
-                    Cash Request
-                  </Link>
-                </div>
-                <div className="flex items-center gap-3 px-3 py-2 rounded-xl">
-                  <div
-                    className="text-[#0e161b]"
-                    data-icon="House"
-                    data-size="24px"
-                    data-weight="fill"
-                  >
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="24px"
-                      height="24px"
-                      fill="currentColor"
-                      viewBox="0 0 256 256"
-                    >
-                      <path d="M205.66,117.66a8,8,0,0,1-11.32,0L136,59.31V216a8,8,0,0,1-16,0V59.31L61.66,117.66a8,8,0,0,1-11.32-11.32l72-72a8,8,0,0,1,11.32,0l72,72A8,8,0,0,1,205.66,117.66Z"></path>
-                    </svg>
-                  </div>
-                  <Link
-                    href="/agentwithdrawrequest"
-                    className="text-[#0e161b] text-sm font-medium leading-normal"
-                  >
-                    Give A WithDraw Request
-                  </Link>
-                </div>
+                )}
               </>
             )}
             {user?.role === "admin" && (

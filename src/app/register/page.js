@@ -11,7 +11,7 @@ import axios from "axios";
 import { useRouter } from "next/navigation";
 import { toast } from "react-toastify";
 
-const options = [{ role: "user" }, { role: "Agent" }];
+const options = [{ role: "user" }, { role: "agent" }];
 
 const Register = () => {
   const [selected, setSelected] = useState(options[0]);
@@ -46,8 +46,6 @@ const Register = () => {
       nid,
       role,
     };
-    // console.log(userData);
-    // return;
     axios.defaults.withCredentials = true;
     axios
       .post(`${process.env.NEXT_PUBLIC_API_URL}/auth/register`, userData)
