@@ -6,6 +6,7 @@ import { FiEye, FiEyeOff } from "react-icons/fi";
 function Sidebar({ user, logout }) {
   // console.log(user);
   const [isVisible, setIsVisible] = useState(false);
+  const [isVisible1, setIsVisible1] = useState(false);
 
   const handleLogout = () => {
     logout();
@@ -150,6 +151,21 @@ function Sidebar({ user, logout }) {
                       }`}
                     >
                       {user?.isApproved ? user?.balance || "0.00" : "0.00"}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-3 px-4 py-2 rounded-xl shadow-sm">
+                    <p
+                      onClick={() => setIsVisible1(!isVisible1)}
+                      className="cursor-pointer text-sm font-semibold text-gray-700"
+                    >
+                      Income
+                    </p>
+                    <div
+                      className={`text-sm font-bold transition-all ${
+                        isVisible1 ? "text-black" : "blur-sm text-gray-500"
+                      }`}
+                    >
+                      {user?.isApproved ? user?.agent_income || "0.00" : "0.00"}
                     </div>
                   </div>
                 </div>
