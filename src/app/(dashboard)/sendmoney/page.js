@@ -11,7 +11,7 @@ import { toast } from "react-toastify";
 const SendMoney = () => {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { user,getUser } = useContext(AuthContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -47,6 +47,7 @@ const SendMoney = () => {
 
       if (response.status === 200) {
         toast.success("Money sent successfully");
+        getUser();
         event.target.reset(); 
       }
     } catch (err) {
