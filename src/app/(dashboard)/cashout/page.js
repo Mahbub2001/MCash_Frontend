@@ -4,7 +4,6 @@ import SecondaryButton from "@/components/SecondaryButon/SecondaryButton";
 import SmallSpinner from "@/components/Spinner/SmallSpinner";
 import { AuthContext } from "@/hooks/AuthProvider";
 import axios from "axios";
-import Link from "next/link";
 import React, { useContext, useState } from "react";
 import { toast } from "react-toastify";
 
@@ -18,12 +17,16 @@ function CashOut() {
     setLoading(true);
     setError("");
 
-    const receiverPhone = event.target.mobile.value;
+    const agentPhone = event.target.mobile.value;
     const amount = parseInt(event.target.amount.value);
     const pin = event.target.pin.value;
 
-    if (user.balance < amount * 0.005 + amount * 0.01) {
-      toast.error("Insufficient Balance");
+    const adminFee = amount * 0.005; 
+    const agentFee = amount * 0.01;
+    const totalAmountWithFees = amount + adminFee + agentFee;
+
+    if (user.balance < totalAmountWithFees) {
+      toast.error("Insufficient balance to cover the amount and fees");
       setLoading(false);
       return;
     }
@@ -31,16 +34,16 @@ function CashOut() {
     try {
       axios.defaults.withCredentials = true;
       const response = await axios.post(
-        `${process.env.NEXT_PUBLIC_API_URL}/user/send-money`,
+        `${process.env.NEXT_PUBLIC_API_URL}/user/cash-out`,
         {
-          receiverPhone,
+          agentPhone,
           amount,
           pin,
         }
       );
 
       if (response.status === 200) {
-        toast.success("Money sent successfully");
+        toast.success("Cash-out successful");
         getUser();
         event.target.reset();
       }
@@ -55,6 +58,7 @@ function CashOut() {
       setLoading(false);
     }
   };
+
   return (
     <>
       <div className="flex justify-center items-center h-screen">
