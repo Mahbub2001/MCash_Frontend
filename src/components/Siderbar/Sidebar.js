@@ -345,7 +345,7 @@ function Sidebar({ user, logout }) {
                     </svg>
                   </div>
                   <Link
-                    href="/agentaddmoney"
+                    href="/adminapproveaddmoney"
                     className="text-[#0e161b] text-sm font-medium leading-normal"
                   >
                     Add Money Agent
