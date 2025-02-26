@@ -3,11 +3,13 @@
 import React, { useState, useEffect, createContext, useMemo, useCallback } from "react";
 import axios from "axios";
 export const AuthContext = createContext();
+import { useRouter } from "next/navigation";
 
 const AuthProvider = ({ children }) => {
   axios.defaults.withCredentials = true;
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   // getuser
   const getUser = useCallback(async () => {
@@ -32,21 +34,23 @@ const AuthProvider = ({ children }) => {
         { mobile, pin }
       );
       await getUser();
+      router.push("/dash");
       return response?.data;
     } catch (error) {
       return Promise.reject(error?.response?.data);
     }
-  }, [getUser]);
+  }, [getUser,router]);
 
   const logout = useCallback(async () => {
     try {
       await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/logout`);
       setUser(null);
       await getUser();
+      router.push("/login"); 
     } catch (error) {
       console.log(error);
     }
-  }, [getUser]);
+  }, [getUser, router]);
 
   useEffect(() => {
     setLoading(true);
