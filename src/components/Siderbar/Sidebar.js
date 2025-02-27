@@ -1,7 +1,8 @@
 "use client";
 
+import axios from "axios";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FaArrowLeft, FaArrowRight, FaBars } from "react-icons/fa";
 import { FiEye, FiEyeOff } from "react-icons/fi";
 
@@ -9,6 +10,24 @@ function Sidebar({ user, logout }) {
   const [isVisible, setIsVisible] = useState(false);
   const [isVisible1, setIsVisible1] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [totalBalance, setTotalBalance] = useState(null);
+  useEffect(() => {
+    const fetchTotalBalance = async () => {
+      axios.defaults.withCredentials = true;
+      try {
+        if (user?.role === "admin") {
+          const { data } = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/admin/total-system-balance`
+          );
+          setTotalBalance(data.totalBalance);
+        }
+      } catch (error) {
+        console.error("Failed to fetch total balance:", error);
+      }
+    };
+
+    fetchTotalBalance();
+  }, [user]);
 
   const handleLogout = () => {
     logout();
@@ -292,14 +311,14 @@ function Sidebar({ user, logout }) {
                       onClick={() => setIsVisible(!isVisible)}
                       className="cursor-pointer text-sm font-semibold text-gray-700"
                     >
-                      Total Amount
+                      System Amount
                     </p>
                     <div
                       className={`text-sm font-bold transition-all ${
                         isVisible ? "text-black" : "blur-sm text-gray-500"
                       }`}
                     >
-                      {user?.balance || "৳0.00"}
+                      {totalBalance || "৳0.00"}
                     </div>
                   </div>
                 </div>
